@@ -1,0 +1,39 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from '../../styles/Layouts/YatchCard.module.css';
+
+interface YachtCardProps {
+  name: string;
+  imageUrl: string;
+  yachtId: string; // Unique ID for the yacht
+  yacht?: any;
+}
+
+const MyYacht: React.FC<YachtCardProps> = ({ name, imageUrl, yachtId, yacht }) => {
+  const navigate = useNavigate();
+  console.log("yachtId", yachtId);
+  const handleBookNow = () => {
+    navigate(`/yatch-details/${yachtId}`, {
+      state: { yacht }  
+    });
+  };
+
+  return (
+    <div className={styles.card}>
+      {/* <div className={styles.header}>
+        <h2 className={styles.name}>{name}</h2>
+        <p className={styles.capacity}>Capacity: {capacity} people</p>
+      </div> */}
+      <div className={styles.imageContainer}>
+        <img src={imageUrl} alt={name} className={styles.image} />
+        {/* <div className={styles.priceTag}>Starting from {startingPrice}</div> */}
+      </div>
+      <div className={styles.yatchName}>{name}</div>
+      <button className={styles.bookButton} onClick={handleBookNow}>
+        Edit or View Details
+      </button>
+    </div>
+  );
+};
+
+export default MyYacht;
